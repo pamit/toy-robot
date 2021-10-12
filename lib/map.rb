@@ -12,8 +12,8 @@ class Map
 
   DIRECTIONS = [NORTH, EAST, WEST, SOUTH].freeze
 
-  MAX_X = 4
-  MAX_Y = 4
+  MAX_X = 5
+  MAX_Y = 5
 
   attr_reader :x, :y, :direction
 
