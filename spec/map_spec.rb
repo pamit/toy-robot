@@ -79,11 +79,11 @@ RSpec.describe Map do
 
     context 'when robot may fall' do
       it 'case 1' do
-        instance.place(x: 1, y: 5, direction: Map::NORTH)
+        instance.place(x: 1, y: 4, direction: Map::NORTH)
         expect { instance.move }.to raise_error(InvalidMoveError, /Robot may fall!/)
 
         expect(instance.x).to eq(1)
-        expect(instance.y).to eq(5)
+        expect(instance.y).to eq(4)
         expect(instance.direction).to eq(Map::NORTH)
       end
 

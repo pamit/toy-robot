@@ -3,6 +3,7 @@
 require_relative 'parser'
 require_relative 'map'
 require_relative 'errors'
+require 'byebug'
 
 # This class is responsible to run the game by:
 #  * parsing the user commands
@@ -19,7 +20,7 @@ class App
 
     loop do
       command = Parser.command
-      break if command == Parser::EXIT
+      break if Parser.exit?
 
       execute_command(command)
     rescue MapSetupError => e
@@ -36,18 +37,17 @@ class App
 
   private
 
-  def execute_command(command)
-    case command
-    when /#{Parser::PLACE}/
+  def execute_command(command) # rubocop:disable Metrics/AbcSize
+    if Parser.place?
       args = command.split(/ /)[1].split(/,/)
       @map.place(x: args[0].to_i, y: args[1].to_i, direction: args[2])
-    when Parser::MOVE
+    elsif Parser.move?
       @map.move
-    when Parser::RIGHT
+    elsif Parser.right?
       @map.turn_right
-    when Parser::LEFT
+    elsif Parser.left?
       @map.turn_left
-    when Parser::REPORT
+    elsif Parser.report?
       $stdout.puts @map.report
     end
   end

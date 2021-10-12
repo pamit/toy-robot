@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'byebug'
+
 # This class parses the user input.
 #
 class Parser
@@ -14,25 +16,32 @@ class Parser
   EXIT_REGEX = /\A(q|quit|exit)\z/.freeze
   INVALID_COMMAND_MESSAGE = 'Command: invalid!'
 
-  def self.command
-    cmd = read_command
+  (COMMANDS + [EXIT]).each do |command|
+    define_singleton_method("#{command.downcase}?") do
+      @cmd == command
+    end
+  end
 
-    case cmd
+  def self.command
+    input = read_command
+
+    case input
     when /\A(PLACE (-?)\d,(-?)\d,\w+)\z/
-      cmd
+      @cmd = PLACE
+      input
     when /\A(MOVE)\z/
-      MOVE
+      @cmd = MOVE
     when /\A(LEFT)\z/
-      LEFT
+      @cmd = LEFT
     when /\A(RIGHT)\z/
-      RIGHT
+      @cmd = RIGHT
     when /\A(REPORT)\z/
-      REPORT
+      @cmd = REPORT
     when EXIT_REGEX
-      EXIT
+      @cmd = EXIT
     else
       $stdout.puts INVALID_COMMAND_MESSAGE
-      nil
+      @cmd = nil
     end
   end
 

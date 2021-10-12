@@ -120,6 +120,6 @@ class Map
   end
 
   def valid_move?(x, y) # rubocop:disable Naming/MethodParameterName
-    (0..MAX_X).include?(x) && (0..MAX_Y).include?(y)
+    (0..MAX_X - 1).include?(x) && (0..MAX_Y - 1).include?(y)
   end
 end
