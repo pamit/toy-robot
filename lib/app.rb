@@ -23,9 +23,7 @@ class App
       break if Parser.exit?
 
       execute_command(command)
-    rescue MapSetupError => e
-      $stdout.puts e.message
-    rescue InvalidMoveError => e
+    rescue MapSetupError, InvalidMoveError => e
       $stdout.puts e.message
     end
   end
@@ -39,7 +37,7 @@ class App
 
   def execute_command(command) # rubocop:disable Metrics/AbcSize
     if Parser.place?
-      args = command.split(/ /)[1].split(/,/)
+      args = command.split(/ /)[1].split(',')
       @map.place(x: args[0].to_i, y: args[1].to_i, direction: args[2])
     elsif Parser.move?
       @map.move

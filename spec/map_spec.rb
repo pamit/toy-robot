@@ -125,9 +125,9 @@ RSpec.describe Map do
 
       it 'we trust you buddy!' do
         if (x < 0 || x > Map::MAX_X) || (y < 0 || y > Map::MAX_Y)
-          expect { instance.place(x: x, y: y, direction: direction) }.to raise_error(MapSetupError)
+          expect { instance.place(x:, y:, direction:) }.to raise_error(MapSetupError)
         else
-          instance.place(x: x, y: y, direction: direction)
+          instance.place(x:, y:, direction:)
           instance.send("turn_#{turn}")
 
           if x == Map::MAX_X - 1 || y == Map::MAX_Y - 1

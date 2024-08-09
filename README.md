@@ -1,50 +1,6 @@
-# Installation
-Ruby version: `2.7.3`
-
-```bash
-bundle install
-```
-
-# Development & Test
-Run Rspec:
-
-```bash
-rspec
-```
-
-Run Rubocop:
-```bash
-rubocop
-```
-
-# Usage
-
-```bash
-rake robot:run
-
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
-...
-
-quit
-```
-
-![sample](sample.png)
-
 # Toy Robot
 
-#### What is this ?
-
-Toy Robot is a ruby coding exercise that we get our potential candidates  complete for us (Mable) to understand their capabilities.
-
-#### What do I need to do ?
-
-## Specification
-
-### Description
+## Description
 - The application is a simulation of a toy robot moving on a square tabletop,
   of dimensions 5 units x 5 units.
 - There are no other obstructions on the table surface.
@@ -80,29 +36,27 @@ REPORT
 - Input can be from a file, or from standard input, as the developer chooses.
 - Provide test data to exercise the application.
 
-### Constraints
+## Constraints
 The toy robot must not fall off the table during movement. This also includes
 the initial placement of the toy robot. Any move that would cause the robot
 to fall must be ignored.
 
-### Example Input and Output
-a)
+## Example Input and Output
+
 ```
 PLACE 0,0,NORTH
 MOVE
 REPORT
+Output: 0,1,NORTH
 ```
-Output: `0,1,NORTH`
 
-b)
 ```
 PLACE 0,0,NORTH
 LEFT
 REPORT
+Output: 0,0,WEST
 ```
-Output: `0,0,WEST`
 
-c)
 ```
 PLACE 1,2,EAST
 MOVE
@@ -110,40 +64,41 @@ MOVE
 LEFT
 MOVE
 REPORT
+Output: 3,3,NORTH
 ```
-Output: `3,3,NORTH`
 
-#### Why am I doing this ?
+## Installation
+Ruby version: `2.7.3`
 
-At Mable we belive these kind of coding challenges will give us more visibility on the candidate's strengths. On the other have, candidates can show their
-capabilities by applying what they already know.
+```bash
+bundle install
+```
 
-#### What’s next ?
+## Development & Test
+Run Rspec:
 
-- clone this repo
-- Do your changes
-- Email us the link to your public git repo with the solution
+```bash
+rspec
+```
 
+Run Rubocop:
+```bash
+rubocop
+```
 
-#### What do We expect as deliveries?
+## Run
 
-While we love to see a working code, the most important aspects we are looking in to is,
+```bash
+rake robot:run
 
-- How you would approach a problem
-- How you approach around testing
-- Any other related documents (E.g README) that will help someone to set up and run this project.
+PLACE X,Y,F
+MOVE
+LEFT
+RIGHT
+REPORT
+...
 
-#### What are the next steps ?
+quit
+```
 
-Once you completed the exercise and let us know, we'll go through your code and if we are happy with your code, we'll contact you for the next step, which is a
-discussion on this code and your thinking / approach to this problem.
-
-#### Toy robot is a very common coding test and I can find heaps of sample code ?
-
-Yes, true, this is a very famous common test. However, we sincerely hope that you'll not just copy and paste a code from internet :).
-
-In Fact the author of this test himself has described, why this test is still relevant, even though there are many examples out there
-
-[Toy Robot Coding Puzzle](https://joneaves.wordpress.com/2014/07/21/toy-robot-coding-test/)
-
-All the very best !!!
+![sample](static/sample.png)

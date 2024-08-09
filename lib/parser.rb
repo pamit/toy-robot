@@ -13,7 +13,7 @@ class Parser
   EXIT     = 'EXIT'
   COMMANDS = [PLACE, MOVE, LEFT, RIGHT, REPORT].freeze
 
-  EXIT_REGEX = /\A(q|quit|exit)\z/.freeze
+  EXIT_REGEX = /\A(q|quit|exit)\z/
   INVALID_COMMAND_MESSAGE = 'Command: invalid!'
 
   (COMMANDS + [EXIT]).each do |command|

@@ -25,3 +25,12 @@
 ### Features
 
 - You can exit by issuing: q, quit or exit commands.
+
+---
+### Status
+
+- v0.2.0 released
+
+### Features
+
+- Updated Ruby version from `2.7` to `3.1`
