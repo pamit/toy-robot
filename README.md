@@ -120,3 +120,9 @@ rubocop
 Using `SimpleCov` to render coverage data:
 
 ![coverage](coverage/coverage.png)
+
+## CI
+
+This repository uses GitHub Actions to add sample workflow jobs for testing and deploying the app. There are sample environments (`Sandbox` and `Production`) which requires approval from reviewers to deploy to those environments.
+
+![CI](static/CI.png)
