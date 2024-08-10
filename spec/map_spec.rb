@@ -31,7 +31,7 @@ RSpec.describe Map do
       end.to raise_error(MapSetupError)
 
       expect do
-        instance.place(x: 1, y: (Map::MAX_Y + 1), direction: Map::NORTH)
+        instance.place(x: 1, y: (Map::MAP_DEFAULT_HEIGHT + 1), direction: Map::NORTH)
       end.to raise_error(MapSetupError)
     end
   end
@@ -124,13 +124,13 @@ RSpec.describe Map do
       let(:turn) { %i[right left].sample }
 
       it 'we trust you buddy!' do
-        if (x < 0 || x > Map::MAX_X) || (y < 0 || y > Map::MAX_Y)
+        if (x < 0 || x > Map::MAP_DEFAULT_WIDTH) || (y < 0 || y > Map::MAP_DEFAULT_HEIGHT)
           expect { instance.place(x:, y:, direction:) }.to raise_error(MapSetupError)
         else
           instance.place(x:, y:, direction:)
           instance.send("turn_#{turn}")
 
-          if x == Map::MAX_X - 1 || y == Map::MAX_Y - 1
+          if x == Map::MAP_DEFAULT_WIDTH - 1 || y == Map::MAP_DEFAULT_HEIGHT - 1
             expect { instance.move }.to raise_error(InvalidMoveError)
           else
             instance.move

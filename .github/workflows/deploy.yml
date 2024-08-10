@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        type: environment
+        required: true
+
+jobs:
+  Build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        ruby: ['2.7.3', '3.1.3']
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # ruby-version: ${{ matrix.ruby }} # Not needed with a .ruby-version file
+          bundler-cache: true
+
+      - name: Install Dependencies
+        run: |
+          echo "Installing Bundler..."
+          gem install bundler
+
+      - name: Install Gems
+        run: |
+          echo "Installing gems..."
+          bundle install
+
+      - name: Run Tests
+        run: |
+          echo "🧪 Testing..."
+          bundle exec rspec
+
+      - name: Run Rubocop
+        run: |
+          echo "🧪 Robocop..."
+          bundle exec rubocop
+
+  Sandbox:
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'workflow_dispatch'
+    needs: Build
+    environment: Sandbox
+    steps:
+      - run: |
+          echo "🚀 Deploying to Sandbox..."
+          sleep 3
+
+  Production:
+    runs-on: ubuntu-latest
+    needs: [Sandbox]
+    environment:
+      name: Production
+      url: https://example.com
+    # if: github.event.inputs.environment == 'Production'
+    steps:
+      - run: |
+          echo "🚀 Deploying to Production..."
+          sleep 3
