@@ -114,7 +114,6 @@
           1,
           1,
           1,
-          1,
           null,
           null,
           null,
@@ -132,6 +131,11 @@
           9,
           42,
           42,
+          9,
+          9,
+          9,
+          9,
+          null,
           null,
           33,
           null,
@@ -140,6 +144,7 @@
           null,
           null,
           1,
+          9,
           9,
           9,
           null,
@@ -166,8 +171,6 @@
       "/Users/payammousavi/Documents/Personal/Projects/Ruby/toy-robot/lib/parser.rb": {
         "lines": [
           null,
-          null,
-          1,
           null,
           null,
           null,
@@ -241,10 +244,13 @@
           null,
           1,
           1,
-          null,
+          1,
           1,
           null,
           1,
+          null,
+          1,
+          24,
           24,
           24,
           24,
@@ -314,6 +320,14 @@
           null,
           null,
           1,
+          null,
+          1,
+          24,
+          24,
+          null,
+          24,
+          24,
+          null,
           null,
           1,
           22,
@@ -571,6 +585,6 @@
         ]
       }
     },
-    "timestamp": 1723243242
+    "timestamp": 1723297735
   }
 }

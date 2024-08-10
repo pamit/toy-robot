@@ -12,15 +12,18 @@ class Map
 
   DIRECTIONS = [NORTH, EAST, WEST, SOUTH].freeze
 
-  MAX_X = 5
-  MAX_Y = 5
+  MAP_DEFAULT_WIDTH  = 5
+  MAP_DEFAULT_HEIGHT = 5
+  MAP_MAX_WIDTH      = 10_000
+  MAP_MAX_HEIGHT     = 10_000
 
-  attr_reader :x, :y, :direction
+  attr_reader :x, :y, :direction, :max_x, :max_y
 
-  def initialize
+  def initialize(max_x: MAP_DEFAULT_WIDTH, max_y: MAP_DEFAULT_HEIGHT)
     @x = -1
     @y = -1
     @direction = nil
+    set_map_size(max_x, max_y)
   end
 
   def place(x:, y:, direction:) # rubocop:disable Naming/MethodParameterName
@@ -88,6 +91,14 @@ class Map
 
   private
 
+  def set_map_size(max_x, max_y)
+    raise MapSetupError, 'Map size exceeds max (10_000)' if max_x.to_i > MAP_MAX_WIDTH || max_y.to_i > MAP_MAX_HEIGHT
+    raise MapSetupError, 'Map size must be greater than 0' if max_x.to_i <= 0 || max_y.to_i <= 0
+
+    @max_x = max_x.to_i
+    @max_y = max_y.to_i
+  end
+
   def set_initial_coordination(x, y) # rubocop:disable Naming/MethodParameterName
     raise MapSetupError, 'Wrong coordination(s)' unless valid_move?(x, y)
 
@@ -120,6 +131,6 @@ class Map
   end
 
   def valid_move?(x, y) # rubocop:disable Naming/MethodParameterName
-    (0..MAX_X - 1).include?(x) && (0..MAX_Y - 1).include?(y)
+    (0..@max_x - 1).include?(x) && (0..@max_y - 1).include?(y)
   end
 end

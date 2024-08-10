@@ -34,3 +34,23 @@
 ### Features
 
 - Updated Ruby version from `2.7` to `3.1`
+- Added `REPORT`
+
+---
+### Status
+
+- v0.2.1 released
+
+### Features
+
+- Added Dockerfile
+
+---
+### Status
+
+- v0.2.2 released
+
+### Features
+
+- App accepts map size from arguments
+- Added GitHub Actions workflows

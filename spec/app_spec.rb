@@ -4,7 +4,7 @@ require 'spec_helper'
 require_relative '../lib/app'
 
 RSpec.describe App do
-  let(:instance) { described_class.new }
+  let(:instance) { described_class.new(5, 5) }
 
   describe '#run' do
     context 'welcome message' do

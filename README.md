@@ -74,6 +74,33 @@ Ruby version: `2.7.3`
 bundle install
 ```
 
+## Run
+
+```bash
+rake robot:run
+# or
+rake robot:run'[10,10]' # with max width and max height for the map
+
+PLACE X,Y,F
+MOVE
+LEFT
+RIGHT
+REPORT
+...
+
+quit
+```
+
+### With Docker
+
+```bash
+docker build -t toy-robot
+
+docker run -e MAP_MAX_X=10 -e MAP_MAX_Y=10 -it toy-robot
+```
+
+![sample](static/sample.png)
+
 ## Development & Test
 Run Rspec:
 
@@ -86,19 +113,8 @@ Run Rubocop:
 rubocop
 ```
 
-## Run
+### Code Coverage
 
-```bash
-rake robot:run
+Using `SimpleCov` to render coverage data:
 
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
-...
-
-quit
-```
-
-![sample](static/sample.png)
+![coverage](coverage/coverage.png)

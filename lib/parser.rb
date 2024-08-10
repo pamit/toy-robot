@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
-
 # This class parses the user input.
 #
 class Parser
@@ -13,7 +11,7 @@ class Parser
   EXIT     = 'EXIT'
   COMMANDS = [PLACE, MOVE, LEFT, RIGHT, REPORT].freeze
 
-  EXIT_REGEX = /\A(q|quit|exit)\z/
+  EXIT_REGEX = /\A(q|Q|quit|QUIT|exit|EXIT)\z/
   INVALID_COMMAND_MESSAGE = 'Command: invalid!'
 
   (COMMANDS + [EXIT]).each do |command|
@@ -26,7 +24,7 @@ class Parser
     input = read_command
 
     case input
-    when /\A(PLACE (-?)\d,(-?)\d,\w+)\z/
+    when /\A(PLACE (-?)\d+,\s*(-?)\d+,\s*\w+)\z/
       @cmd = PLACE
       input
     when /\A(MOVE)\z/
@@ -46,7 +44,7 @@ class Parser
   end
 
   def self.read_command
-    input = $stdin.gets&.chomp.to_s
+    input = $stdin.gets&.chomp.to_s.upcase
     return nil unless COMMANDS.include?(input) ||
                       input.match(PLACE) ||
                       input.match(EXIT_REGEX)
