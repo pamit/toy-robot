@@ -2,6 +2,18 @@
 
 ![Build and Deploy](https://github.com/pamit/toy-robot/actions/workflows/deploy.yml/badge.svg)
 
+## Table of Contents:
+- [Toy Robot](#toy-robot)
+  - [Table of Contents:](#table-of-contents)
+  - [Description](#description)
+  - [Constraints](#constraints)
+  - [Example Input and Output](#example-input-and-output)
+  - [Installation](#installation)
+  - [Run](#run)
+  - [Development \& Test](#development--test)
+  - [Code Coverage](#code-coverage)
+  - [CI (GitHub Actions)](#ci-github-actions)
+
 ## Description
 - The application is a simulation of a toy robot moving on a square tabletop,
   of dimensions 5 units x 5 units.
@@ -93,7 +105,7 @@ REPORT
 quit
 ```
 
-### With Docker
+And with Docker:
 
 ```bash
 docker build -t toy-robot
@@ -115,13 +127,13 @@ Run Rubocop:
 rubocop
 ```
 
-### Code Coverage
+## Code Coverage
 
 Using `SimpleCov` to render coverage data:
 
 ![coverage](coverage/coverage.png)
 
-## CI
+## CI (GitHub Actions)
 
 This repository uses GitHub Actions to add sample workflow jobs for testing and deploying the app. There are sample environments (`Sandbox` and `Production`) which requires approval from reviewers to deploy to those environments.
 
