@@ -1,5 +1,7 @@
 # Toy Robot
 
+![Build and Deploy](https://github.com/pamit/toy-robot/actions/workflows/deploy.yml/badge.svg)
+
 ## Description
 - The application is a simulation of a toy robot moving on a square tabletop,
   of dimensions 5 units x 5 units.
