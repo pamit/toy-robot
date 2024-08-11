@@ -56,10 +56,12 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Get version
+        id: get_version
         run: |
           COMMIT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
           export VERSION=$(cat version.txt)-$COMMIT_SHA
           echo "Version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Build
         id: docker_build
@@ -69,7 +71,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: false
-          tags: pamitedu/toy-robot:"$VERSION"
+          tags: pamitedu/toy-robot:${{ steps.get_version.outputs.version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
