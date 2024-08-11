@@ -63,7 +63,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: false
-          tags: pamitedu/toy-robot:${{ steps.get_version.outputs.version }}
+          tags: pamitedu/toy-robot:v${{ steps.get_version.outputs.version }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
