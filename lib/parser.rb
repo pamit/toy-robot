@@ -1,54 +1,49 @@
 # frozen_string_literal: true
 
+require_relative 'position'
+require_relative 'commands/exit_command'
+require_relative 'commands/move_command'
+require_relative 'commands/noop_command'
+require_relative 'commands/place_command'
+require_relative 'commands/report_command'
+require_relative 'commands/turn_left_command'
+require_relative 'commands/turn_right_command'
+# Dir.glob("#{File.dirname(__FILE__)}/lib/commands/*.rb").each { |file| require_relative file }
+
 # This class parses the user input.
 #
 class Parser
-  PLACE    = 'PLACE'
-  MOVE     = 'MOVE'
-  LEFT     = 'LEFT'
-  RIGHT    = 'RIGHT'
-  REPORT   = 'REPORT'
-  EXIT     = 'EXIT'
-  COMMANDS = [PLACE, MOVE, LEFT, RIGHT, REPORT].freeze
+  PLACE_REGEX  = /\A(PLACE (-?)\d+,\s*(-?)\d+,\s*\w+)\z/
+  EXIT_REGEX   = /\A(Q|QUIT|EXIT)\z/
+  MOVE_REGEX   = /\A(MOVE)\z/
+  LEFT_REGEX   = /\A(LEFT)\z/
+  RIGHT_REGEX  = /\A(RIGHT)\z/
+  REPORT_REGEX = /\A(REPORT)\z/
 
-  EXIT_REGEX = /\A(q|Q|quit|QUIT|exit|EXIT)\z/
-  INVALID_COMMAND_MESSAGE = 'Command: invalid!'
-
-  (COMMANDS + [EXIT]).each do |command|
-    define_singleton_method("#{command.downcase}?") do
-      @cmd == command
-    end
-  end
-
-  def self.command
-    input = read_command
+  def self.command(map, robot) # rubocop:disable Metrics/AbcSize
+    input = next_input
 
     case input
-    when /\A(PLACE (-?)\d+,\s*(-?)\d+,\s*\w+)\z/
-      @cmd = PLACE
-      input
-    when /\A(MOVE)\z/
-      @cmd = MOVE
-    when /\A(LEFT)\z/
-      @cmd = LEFT
-    when /\A(RIGHT)\z/
-      @cmd = RIGHT
-    when /\A(REPORT)\z/
-      @cmd = REPORT
+    when PLACE_REGEX
+      args = input.split(/PLACE\s*/)[1].split(/,\s*/)
+      position = Position.new(args[0].to_i, args[1].to_i, args[2])
+      PlaceCommand.new(map:, robot:, position:)
+    when MOVE_REGEX
+      MoveCommand.new(map:, robot:)
+    when LEFT_REGEX
+      TurnLeftCommand.new(robot:)
+    when RIGHT_REGEX
+      TurnRightCommand.new(robot:)
+    when REPORT_REGEX
+      ReportCommand.new(robot:)
     when EXIT_REGEX
-      @cmd = EXIT
+      ExitCommand.new
     else
-      $stdout.puts INVALID_COMMAND_MESSAGE
-      @cmd = nil
+      NoopCommand.new
     end
   end
 
-  def self.read_command
-    input = $stdin.gets&.chomp.to_s.upcase
-    return nil unless COMMANDS.include?(input) ||
-                      input.match(PLACE) ||
-                      input.match(EXIT_REGEX)
-
-    input
+  def self.next_input
+    $stdin.gets&.chomp.to_s.upcase
   end
 end
