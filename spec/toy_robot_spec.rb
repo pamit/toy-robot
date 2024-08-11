@@ -76,5 +76,19 @@ RSpec.describe ToyRobotApp do
         expect { instance.run }.to output(/Wrong coordination\(s\)/).to_stdout
       end
     end
+
+    context 'with file parser' do
+      let(:instance) do
+        described_class::Builder
+          .max_x(5)
+          .max_y(5)
+          .file('test.txt')
+          .build
+      end
+
+      it 'sets parser to FileParser' do
+        expect(instance.parser.class).to eq(FileParser)
+      end
+    end
   end
 end

@@ -82,7 +82,7 @@ Output: 3,3,NORTH
 ```
 
 ## Installation
-Ruby version: `2.7.3`
+Ruby version: `2.7.3`, `3.1.3`
 
 ```bash
 bundle install
@@ -93,7 +93,10 @@ bundle install
 ```bash
 rake robot:run
 # or
-rake robot:run'[10,10]' # with max width and max height for the map
+rake robot:run'[10,10,test.txt]' # with max width and max height for the map
+# or
+ruby lib/main.rb --max-x=3 --max-y=3 --file=test.txt
+
 
 PLACE X,Y,F
 MOVE
