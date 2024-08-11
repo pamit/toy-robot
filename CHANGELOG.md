@@ -64,3 +64,12 @@
 
 - Added Command pattern added for better extendibility
 - Added Builder pattern for demonstration purpose
+
+---
+### Status
+
+- v0.3.0 released
+
+### Features
+
+- Added FileParser

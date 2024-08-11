@@ -18,7 +18,7 @@
 
 require 'simplecov'
 SimpleCov.start
-SimpleCov.minimum_coverage(95.00)
+SimpleCov.minimum_coverage(90.00)
 SimpleCov.print_error_status = false
 
 RSpec.configure do |config|

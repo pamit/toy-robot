@@ -4,6 +4,6 @@ require_relative 'command'
 
 class ReportCommand < Command
   def execute
-    $stdout.puts @robot.report
+    $stdout.puts ">>> Current position: #{@robot.report}"
   end
 end
