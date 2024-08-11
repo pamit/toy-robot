@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
 require_relative 'parser'
 require_relative 'map'
 require_relative 'robot'
