@@ -58,11 +58,12 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Get version
+        id: get_version
         run: |
           COMMIT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
           export VERSION=$(cat version.txt)-$COMMIT_SHA
           echo "Version: $VERSION"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "version=v$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Build and push
         id: docker_build
@@ -72,7 +73,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: pamitedu/toy-robot:v${{ steps.get_version.outputs.version }}
+          tags: pamitedu/toy-robot:${{ steps.get_version.outputs.version }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
