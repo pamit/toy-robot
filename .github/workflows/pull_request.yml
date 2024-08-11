@@ -42,3 +42,7 @@ jobs:
         run: |
           echo "🧪 Robocop..."
           bundle exec rubocop
+
+      - name: Run Docker
+        run: |
+          docker build -t toy-robot

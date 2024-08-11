@@ -54,3 +54,13 @@
 
 - App accepts map size from arguments
 - Added GitHub Actions workflows
+
+---
+### Status
+
+- v0.2.3 released
+
+### Features
+
+- Added Command pattern added for better extendibility
+- Added Builder pattern for demonstration purpose

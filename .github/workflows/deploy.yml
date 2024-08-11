@@ -47,6 +47,10 @@ jobs:
           echo "🧪 Robocop..."
           bundle exec rubocop
 
+      - name: Run Docker
+        run: |
+          docker build -t toy-robot
+
   Sandbox:
     runs-on: ubuntu-latest
     # if: github.event_name == 'workflow_dispatch'

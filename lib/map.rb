@@ -1,97 +1,18 @@
 # frozen_string_literal: true
 
-require_relative 'errors'
+require_relative 'exceptions'
 
-# This class tracks the movement of the robot.
+# This class represents the map/table.
 #
 class Map
-  NORTH = 'NORTH'
-  EAST  = 'EAST'
-  WEST  = 'WEST'
-  SOUTH = 'SOUTH'
-
-  DIRECTIONS = [NORTH, EAST, WEST, SOUTH].freeze
-
   MAP_DEFAULT_WIDTH  = 5
   MAP_DEFAULT_HEIGHT = 5
   MAP_MAX_WIDTH      = 10_000
   MAP_MAX_HEIGHT     = 10_000
 
-  attr_reader :x, :y, :direction, :max_x, :max_y
+  attr_reader :max_x, :max_y
 
-  def initialize(max_x: MAP_DEFAULT_WIDTH, max_y: MAP_DEFAULT_HEIGHT)
-    @x = -1
-    @y = -1
-    @direction = nil
-    set_map_size(max_x, max_y)
-  end
-
-  def place(x:, y:, direction:) # rubocop:disable Naming/MethodParameterName
-    set_initial_coordination(x, y)
-    set_direction(direction)
-  end
-
-  def turn_right
-    raise InvalidMoveError, 'Robot is not placed yet!' unless robot_is_placed?
-
-    new_direction = nil
-
-    case @direction
-    when NORTH
-      new_direction = EAST
-    when EAST
-      new_direction = SOUTH
-    when WEST
-      new_direction = NORTH
-    when SOUTH
-      new_direction = WEST
-    end
-
-    set_direction(new_direction)
-  end
-
-  def turn_left
-    raise InvalidMoveError, 'Robot is not placed yet!' unless robot_is_placed?
-
-    new_direction = nil
-
-    case @direction
-    when NORTH
-      new_direction = WEST
-    when EAST
-      new_direction = NORTH
-    when WEST
-      new_direction = SOUTH
-    when SOUTH
-      new_direction = EAST
-    end
-
-    set_direction(new_direction)
-  end
-
-  def move
-    raise InvalidMoveError, 'Robot is not placed yet!' unless robot_is_placed?
-
-    next_x, next_y = possible_move
-    raise InvalidMoveError, 'Robot may fall!' unless valid_move?(next_x, next_y)
-
-    @x = next_x
-    @y = next_y
-  end
-
-  def report
-    raise InvalidMoveError, 'Robot is not placed yet!' unless robot_is_placed?
-
-    "#{@x},#{@y},#{@direction}"
-  end
-
-  def robot_is_placed?
-    @x != -1 && @y != -1
-  end
-
-  private
-
-  def set_map_size(max_x, max_y)
+  def initialize(max_x = MAP_DEFAULT_WIDTH, max_y = MAP_DEFAULT_HEIGHT)
     raise MapSetupError, 'Map size exceeds max (10_000)' if max_x.to_i > MAP_MAX_WIDTH || max_y.to_i > MAP_MAX_HEIGHT
     raise MapSetupError, 'Map size must be greater than 0' if max_x.to_i <= 0 || max_y.to_i <= 0
 
@@ -99,38 +20,7 @@ class Map
     @max_y = max_y.to_i
   end
 
-  def set_initial_coordination(x, y) # rubocop:disable Naming/MethodParameterName
-    raise MapSetupError, 'Wrong coordination(s)' unless valid_move?(x, y)
-
-    @x = x
-    @y = y
-  end
-
-  def set_direction(direction)
-    raise MapSetupError, 'Wrong direction' unless DIRECTIONS.include?(direction)
-
-    @direction = direction
-  end
-
-  def possible_move
-    next_x = @x
-    next_y = @y
-
-    case @direction
-    when NORTH
-      next_y += 1
-    when EAST
-      next_x += 1
-    when WEST
-      next_x -= 1
-    when SOUTH
-      next_y -= 1
-    end
-
-    [next_x, next_y]
-  end
-
-  def valid_move?(x, y) # rubocop:disable Naming/MethodParameterName
-    (0..@max_x - 1).include?(x) && (0..@max_y - 1).include?(y)
+  def valid_move?(position)
+    (0..@max_x - 1).include?(position.x) && (0..@max_y - 1).include?(position.y)
   end
 end

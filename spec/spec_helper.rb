@@ -16,6 +16,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+require 'byebug'
 require 'simplecov'
 SimpleCov.start
 SimpleCov.minimum_coverage(96.80)
