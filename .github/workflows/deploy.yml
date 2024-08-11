@@ -51,16 +51,8 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache Docker layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -81,8 +73,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: pamitedu/toy-robot:${{ steps.get_version.outputs.version }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

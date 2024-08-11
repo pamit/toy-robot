@@ -64,8 +64,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: false
           tags: pamitedu/toy-robot:${{ steps.get_version.outputs.version }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
