@@ -93,9 +93,9 @@ bundle install
 ```bash
 rake robot:run
 # or
-rake robot:run'[10,10,test.txt]' # with max width and max height for the map
+rake robot:run'[10,10,PATH_TO_FILE]' # with max width and max height for the map
 # or
-ruby lib/main.rb --max-x=3 --max-y=3 --file=test.txt
+ruby lib/main.rb --max-x=3 --max-y=3 --file=PATH_TO_FILE
 
 
 PLACE X,Y,F

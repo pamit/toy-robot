@@ -10,7 +10,6 @@ class Robot
   end
 
   def place(position)
-    # @position = position
     @position.place(x: position.x, y: position.y, direction: position.direction)
   end
 
