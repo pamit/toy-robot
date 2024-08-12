@@ -3,6 +3,8 @@
 require_relative 'toy_robot_app'
 require 'optparse'
 
+# This is a sample client - CLI - to work with ToyRobotApp.
+#
 begin
   # CLI options
   # ex: ruby lib/main.rb --max-x=4 --max-y=3 --file=text.txt
