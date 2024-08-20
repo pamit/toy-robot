@@ -56,4 +56,8 @@ class Position
   def to_point
     [@x, @y]
   end
+
+  def ==(other)
+    @x == other.x && @y == other.y
+  end
 end

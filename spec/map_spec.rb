@@ -59,4 +59,13 @@ RSpec.describe Map do
       end
     end
   end
+
+  describe '#neighbors' do
+    let(:obstacles) { [[0, 1], [4, 4]] }
+
+    it 'returns valid neighbors of a position' do
+      neighbors = instance.neighbors(Position.new(0, 0, Position::NORTH))
+      expect(neighbors.map(&:to_point)).to eq([[1, 0]])
+    end
+  end
 end

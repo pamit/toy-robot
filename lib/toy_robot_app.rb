@@ -70,6 +70,8 @@ class ToyRobotApp
     $stdout.puts e.message
   end
 
+  private
+
   def welcome
     $stdout.puts ''
     $stdout.puts '*** Welcome to Toy Robot! ***'

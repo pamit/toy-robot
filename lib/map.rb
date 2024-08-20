@@ -22,13 +22,23 @@ class Map
   end
 
   def valid_move?(position)
-    (0..@max_x - 1).include?(position.x) && (0..@max_y - 1).include?(position.y) &&
-      !hit_obstacle?(position)
+    (0..@max_x - 1).include?(position.x) && (0..@max_y - 1).include?(position.y)
   end
 
   def hit_obstacle?(position)
-    return true if obstacles.nil?
+    return true if @obstacles.nil?
 
-    obstacles.include?(position.to_point)
+    @obstacles.include?(position.to_point)
+  end
+
+  def neighbors(position)
+    result = []
+
+    [[1, 0], [0, 1], [-1, 0], [0, -1]].each do |x, y|
+      neighbor = Position.new(position.x + x, position.y + y)
+      result << neighbor if valid_move?(neighbor) && !hit_obstacle?(neighbor)
+    end
+
+    result
   end
 end

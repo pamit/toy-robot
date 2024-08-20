@@ -60,77 +60,19 @@ RSpec.describe Position do
     end
   end
 
-  # describe '#move' do
-  #   context 'when robot is not placed yet' do
-  #     it 'does not change the state' do
-  #       expect { instance.move }.to raise_error(InvalidMoveError, /Robot is not placed yet!/)
+  describe '#to_point' do
+    before do
+      instance.place(x: 2, y: 3, direction: Position::NORTH)
+    end
 
-  #       expect(instance.x).to eq(-1)
-  #       expect(instance.y).to eq(-1)
-  #       expect(instance.direction).to eq(nil)
-  #     end
-  #   end
+    it { expect(instance.to_point).to eq([2, 3]) }
+  end
 
-  #   context 'when robot may fall' do
-  #     it 'case 1' do
-  #       instance.place(x: 1, y: 4, direction: Map::NORTH)
-  #       expect { instance.move }.to raise_error(InvalidMoveError, /Robot may fall!/)
+  describe '#==' do
+    before do
+      instance.place(x: 2, y: 3, direction: Position::NORTH)
+    end
 
-  #       expect(instance.x).to eq(1)
-  #       expect(instance.y).to eq(4)
-  #       expect(instance.direction).to eq(Map::NORTH)
-  #     end
-
-  #     it 'case 2' do
-  #       instance.place(x: 3, y: 0, direction: Map::SOUTH)
-  #       expect { instance.move }.to raise_error(InvalidMoveError, /Robot may fall!/)
-
-  #       expect(instance.x).to eq(3)
-  #       expect(instance.y).to eq(0)
-  #       expect(instance.direction).to eq(Map::SOUTH)
-  #     end
-  #   end
-
-  #   context 'with valid move' do
-  #     it 'case 1' do
-  #       instance.place(x: 1, y: 1, direction: Map::NORTH)
-  #       instance.move
-
-  #       expect(instance.x).to eq(1)
-  #       expect(instance.y).to eq(2)
-  #       expect(instance.direction).to eq(Map::NORTH)
-  #     end
-
-  #     it 'case 2' do
-  #       instance.place(x: 2, y: 3, direction: Map::WEST)
-  #       instance.move
-
-  #       expect(instance.x).to eq(1)
-  #       expect(instance.y).to eq(3)
-  #       expect(instance.direction).to eq(Map::WEST)
-  #     end
-  #   end
-
-  #   context 'random setup' do
-  #     let(:x)    { rand(-10..10) }
-  #     let(:y)    { rand(-10..10) }
-  #     let(:direction) { Map::DIRECTIONS.sample }
-  #     let(:turn) { %i[right left].sample }
-
-  #     it 'we trust you buddy!' do
-  #       if (x < 0 || x > Map::MAP_DEFAULT_WIDTH) || (y < 0 || y > Map::MAP_DEFAULT_HEIGHT)
-  #         expect { instance.place(x:, y:, direction:) }.to raise_error(MapSetupError)
-  #       else
-  #         instance.place(x:, y:, direction:)
-  #         instance.send("turn_#{turn}")
-
-  #         if x == Map::MAP_DEFAULT_WIDTH - 1 || y == Map::MAP_DEFAULT_HEIGHT - 1
-  #           expect { instance.move }.to raise_error(InvalidMoveError)
-  #         else
-  #           instance.move
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+    it { expect(instance).to eq(Position.new(2, 3)) }
+  end
 end

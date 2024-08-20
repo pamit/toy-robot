@@ -45,7 +45,7 @@ RSpec.describe MoveCommand do
 
       it 'returns an error if there is an obstacle' do
         robot.place(position)
-        expect { instance.execute }.to raise_error(MapSetupError, /Robot may fall!/)
+        expect { instance.execute }.to raise_error(MapSetupError, /Robot may hit an obstacle!/)
       end
     end
   end
