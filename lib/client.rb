@@ -21,14 +21,22 @@ begin
     parser.on('-f', '--file[FILE]') do |f|
       options[:file] = f
     end
+
+    parser.on('-o', '--obstacles[OBSTACLES]') do |o|
+      points = []
+      o.split(',').each_slice(2) do |p|
+        points << p.map(&:to_i)
+      end
+      options[:obstacles] = points
+    end
   end.parse!
-  # p options
 
   # Initialize the app
   ToyRobotApp::Builder
     .max_x(options[:max_x])
     .max_y(options[:max_y])
     .input_file(options[:file])
+    .obstacles(options[:obstacles])
     .build
     .run
 rescue StandardError => e

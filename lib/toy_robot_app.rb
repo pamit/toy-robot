@@ -23,7 +23,7 @@ class ToyRobotApp
   # Sample Builder class to demonstrate the Builder pattern usage
   # for constructing complex objects
   class Builder
-    attr_reader :map_max_x, :map_max_y, :file
+    attr_reader :map_max_x, :map_max_y, :obstacles, :file
 
     def self.max_x(value)
       @map_max_x = value
@@ -35,13 +35,18 @@ class ToyRobotApp
       self
     end
 
-    def self.input_file(file)
-      @file = file
+    def self.input_file(value)
+      @file = value
+      self
+    end
+
+    def self.obstacles(value)
+      @obstacles = value
       self
     end
 
     def self.build
-      @map = Map.new(@map_max_x, @map_max_y)
+      @map = Map.new(@map_max_x, @map_max_y, @obstacles)
       @robot = Robot.new
 
       # Injecting Parser to ToyRobotApp

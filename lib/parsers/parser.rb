@@ -19,6 +19,7 @@ class Parser
   LEFT_REGEX   = /\A(LEFT)\z/
   RIGHT_REGEX  = /\A(RIGHT)\z/
   REPORT_REGEX = /\A(REPORT)\z/
+  PATH_REGEX   = /\A(PATH (-?)\d+,\s*(-?)\d+)\z/
 
   attr_reader :map, :robot
 
@@ -45,6 +46,10 @@ class Parser
       TurnRightCommand.new(robot:)
     when REPORT_REGEX
       ReportCommand.new(robot:)
+    when PATH_REGEX
+      args = input.split(/PATH\s*/)[1].split(/,\s*/)
+      position = Position.new(args[0].to_i, args[1].to_i)
+      PathCommand.new(map:, robot:, position:)
     when EXIT_REGEX
       ExitCommand.new
     else
