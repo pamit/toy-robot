@@ -8,7 +8,8 @@ require_relative '../../lib/position'
 
 RSpec.describe PlaceCommand do
   let(:robot) { Robot.new }
-  let(:map) { Map.new }
+  let(:obstacles) { [] }
+  let(:map) { Map.new(5, 5, obstacles) }
   let(:position) { Position.new }
   let(:instance) { described_class.new(map:, robot:, position:) }
 
@@ -33,6 +34,15 @@ RSpec.describe PlaceCommand do
       it do
         instance.execute
         expect(robot.report).to eq('0,0,NORTH')
+      end
+    end
+
+    context 'with obstacles' do
+      let(:obstacles) { [[0, 0], [4, 4]] }
+      let(:position) { Position.new(0, 0, Position::NORTH) }
+
+      it 'returns an error if there is an obstacle' do
+        expect { instance.execute }.to raise_error(MapSetupError, /Wrong coordination/)
       end
     end
   end

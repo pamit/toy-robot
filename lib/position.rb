@@ -52,4 +52,8 @@ class Position
   def placed?
     !@x.nil? && !@y.nil? && !@direction.nil?
   end
+
+  def to_point
+    [@x, @y]
+  end
 end
