@@ -8,6 +8,7 @@ require_relative '../commands/place_command'
 require_relative '../commands/report_command'
 require_relative '../commands/turn_left_command'
 require_relative '../commands/turn_right_command'
+require_relative '../commands/path_command'
 # Dir.glob("#{File.dirname(__FILE__)}/lib/commands/*.rb").each { |file| require_relative file }
 
 # This class parses the user input.
@@ -48,8 +49,8 @@ class Parser
       ReportCommand.new(robot:)
     when PATH_REGEX
       args = input.split(/PATH\s*/)[1].split(/,\s*/)
-      position = Position.new(args[0].to_i, args[1].to_i)
-      PathCommand.new(map:, robot:, position:)
+      destination = Position.new(args[0].to_i, args[1].to_i)
+      PathCommand.new(map:, robot:, destination:)
     when EXIT_REGEX
       ExitCommand.new
     else

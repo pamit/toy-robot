@@ -95,7 +95,7 @@ rake robot:run
 # or
 rake robot:run'[10,10,PATH_TO_FILE]' # with max width and max height for the map
 # or
-ruby lib/main.rb --max-x=3 --max-y=3 --file=PATH_TO_FILE
+ruby lib/main.rb --max-x=3 --max-y=3 --file=PATH_TO_FILE --obstacles=1,1
 
 
 PLACE X,Y,F

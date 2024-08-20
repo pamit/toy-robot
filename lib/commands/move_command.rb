@@ -13,6 +13,7 @@ class MoveCommand < Command
 
     new_position = @robot.position.next_move
     raise MapSetupError, 'Robot may fall!' unless @map.valid_move?(new_position)
+    raise MapSetupError, 'Robot may hit an obstacle!' if @map.hit_obstacle?(new_position)
 
     @robot.move(new_position)
   end

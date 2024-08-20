@@ -9,7 +9,7 @@ class PlaceCommand < Command
   end
 
   def execute
-    raise MapSetupError, 'Wrong coordination(s)' unless @map.valid_move?(@position)
+    raise MapSetupError, 'Wrong coordination(s)' if !@map.valid_move?(@position) || @map.hit_obstacle?(@position)
 
     @robot.place(@position)
   end
