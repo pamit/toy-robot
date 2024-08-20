@@ -12,7 +12,7 @@ RUN apt-get update -qq \
 RUN useradd -ms /bin/bash toy-robot-user
 USER toy-robot-user
 
-ENV INSTALL_PATH /home/toy-robot-user/app
+ENV INSTALL_PATH=/home/toy-robot-user/app
 RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 
@@ -28,7 +28,7 @@ RUN bundle install --jobs `getconf _NPROCESSORS_ONLN` --retry 3 --quiet \
 # Final stage
 FROM ruby:3.1.3
 
-ENV INSTALL_PATH /home/toy-robot-user/app
+ENV INSTALL_PATH=/home/toy-robot-user/app
 WORKDIR $INSTALL_PATH
 
 COPY --from=stage1 $INSTALL_PATH $INSTALL_PATH
